@@ -12,9 +12,8 @@ def load_model_and_tokenizer(
 ) -> tuple[PreTrainedModel, PreTrainedTokenizerBase]:
     """Load HuggingFace AutoModelForSeq2SeqLM and AutoTokenizer.
 
-    This function wraps the loading process and enforces consistent torch_dtype
-    and device map settings (such as fp16 and auto device mapping) to ensure
-    reproducibility across runs (e.g. Kaggle T4 GPUs).
+    This function wraps the loading process and enforces consistent
+    device map settings to ensure reproducibility across runs.
 
     The model defaults to 'google/flan-t5-large', which corresponds to the
     optimal base model architecture used in TohokuNLP's paper.
@@ -27,11 +26,11 @@ def load_model_and_tokenizer(
     """
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
 
-    # Enforce consistent dtype for float16 operations
+    # We load in default precision (float32). When fp16=True is set in training arguments,
+    # Hugging Face Trainer automatically enables Automatic Mixed Precision (AMP).
+    # AMP requires trainable parameters to be in float32 for numerical stability.
     model = AutoModelForSeq2SeqLM.from_pretrained(
-        model_name_or_path,
-        torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
-        device_map="auto" if torch.cuda.is_available() else None,
+        model_name_or_path, device_map="auto" if torch.cuda.is_available() else None
     )
 
     return model, tokenizer
