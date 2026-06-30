@@ -48,6 +48,8 @@ def build_training_args(app_cfg: AppConfig, output_dir: str, seed: int) -> Seq2S
         report_to=["none"],  # Avoid wandb prompting/hanging in Kaggle non-interactive environments
         weight_decay=0.01,
         warmup_ratio=0.1,
+        gradient_checkpointing=True,  # Crucial to prevent CUDA OOM on T4 GPUs
+        optim="adafactor",  # Highly memory-efficient optimizer natively suited for T5
     )
 
 
