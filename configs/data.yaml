@@ -1,0 +1,10 @@
+raw_dir: data/raw
+interim_dir: data/interim
+processed_dir: data/processed
+train_file: train.jsonl
+val_file: validation.jsonl
+test_file: test.jsonl
+max_input_length: 1024
+max_target_length: 64
+input_template: "question: {post_text} context: {target_title} - {target_paragraphs}"
+spoiler_join_token: " "

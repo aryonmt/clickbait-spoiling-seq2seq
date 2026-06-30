@@ -1,0 +1,4 @@
+project_name: clickbait-spoiling-seq2seq
+random_seed: 42
+log_level: INFO
+output_root: outputs
