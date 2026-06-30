@@ -1,0 +1,28 @@
+# data
+data/raw/
+data/interim/
+data/processed/
+
+# outputs
+outputs/
+*.ckpt
+*.bin
+*.safetensors
+*.pt
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# kaggle / jupyter
+.ipynb_checkpoints/
+*.log
+
+# env
+.env
+.DS_Store
